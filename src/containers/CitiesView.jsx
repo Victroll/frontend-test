@@ -23,7 +23,13 @@ class CitiesView extends React.Component {
         const urls = this.props.urls;
         return [...this.props.cities].map(city => {
             const imageURL = urls[city];
-            return <ImageButton key={ `${city}ImageButton` } name={ city } imageURL={ imageURL } showName={ true } className=''/>
+            return <ImageButton 
+                    key={ `${city}ImageButton` } 
+                    name={ city } 
+                    imageURL={ imageURL } 
+                    showName={ true } 
+                    className=''
+                    onClick={ this.props.onClick } />
         });
     }
 
@@ -41,7 +47,8 @@ CitiesView.propTypes = {
     cities:     PropTypes.any,
     country:    PropTypes.string,
     dataByCity: PropTypes.object,
-    urls:       PropTypes.object
+    urls:       PropTypes.object,
+    onClick:    PropTypes.func
 }
 
 export default CitiesView;

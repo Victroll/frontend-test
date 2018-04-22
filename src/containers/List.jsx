@@ -19,7 +19,7 @@ class List extends React.Component {
         return Object.keys(this.props.data).map(country => 
             <ListItem 
             key={ country } title={ country } cities={ [...this.props.data].join(', ') }
-            imageURL={ urls[country] } />);
+            imageURL={ urls[country] } onClick={ this.props.onClick } />);
     }
 
     render() {
@@ -35,8 +35,9 @@ class List extends React.Component {
 }
 
 List.propTypes = {
-    data:   PropTypes.object,
-    urls:   PropTypes.object
+    data:       PropTypes.object,
+    urls:       PropTypes.object,
+    onClick:    PropTypes.func
 }
 
 

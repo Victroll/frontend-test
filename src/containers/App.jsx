@@ -18,8 +18,8 @@ class App extends React.Component {
         this.fetchData = this.fetchData.bind(this);
         this.getCitiyesByCountry = this.getCitiyesByCountry.bind(this);
         this.getDataByCity = this.getDataByCity.bind(this);
-        this.getHashCodeBy = this.getHashCodeBy.bind(this);
         this.getImageURLBy = this.getImageURLBy.bind(this);
+        this.goToMapView = this.goToMapView.bind(this);
 
         this.state = {
             stationsData: [],
@@ -27,7 +27,8 @@ class App extends React.Component {
             dataByCity: {},
             imageURLByCountry: {},
             imageURLByCity: {},
-            currentView: 'country'
+            mainView: true,
+            cityShowing: ''
         };
 
         // Fetch the stations data
@@ -124,16 +125,29 @@ class App extends React.Component {
         return data;
     }
 
+    goToMapView(cityName) {
+        this.setState({...this.state,
+            mainView: false,
+            cityShowing: cityName
+        });
+    }
+
     render() {
         return (
             <div>
                 <Header openMenu={ () => {} }/>
-                {/* <CitiesView 
-                country={ 'España' }
-                cities={ this.state.citiesByCountry['España'] } 
-                dataByCity={this.state.dataByCity }
-                urls={ this.state.imageURLByCity } /> */}
-                <MapView />
+                { this.state.mainView ? 
+                    <CitiesView 
+                    country={ 'España' }
+                    cities={ this.state.citiesByCountry['España'] } 
+                    dataByCity={this.state.dataByCity }
+                    urls={ this.state.imageURLByCity }
+                    onClick={ this.goToMapView } />
+                    : 
+                    <MapView 
+                    city={ this.state.cityShowing }
+                    dataByCity={ this.state.dataByCity } />
+                }
                 <Submenu 
                 data={ this.state.citiesByCountry }
                 urls={ this.state.imageURLByCountry } />

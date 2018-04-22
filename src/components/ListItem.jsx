@@ -20,7 +20,8 @@ class ListItem extends React.Component {
 ListItem.propType = {
     title:      PropTypes.string,
     imageURL:   PropTypes.string,
-    cities:     PropTypes.string
+    cities:     PropTypes.string,
+    onClick:    PropTypes.string
 }
 
 export default ListItem;
