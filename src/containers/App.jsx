@@ -22,6 +22,7 @@ class App extends React.Component {
         this.goToMapView = this.goToMapView.bind(this);
         this.getStationsByCity = this.getStationsByCity.bind(this);
         this.changeCountry = this.changeCountry.bind(this);
+        this.moveToStation = this.moveToStation.bind(this);
 
         this.state = {
             stationsData: [],
@@ -34,6 +35,7 @@ class App extends React.Component {
             countries: [],
             mainView: true,
             cityShowing: '',
+            currentLatLng: null,
             stationShowing: '',
             countryShowing: 'España'
         };
@@ -60,8 +62,6 @@ class App extends React.Component {
                 const stationsByCity = this.getStationsByCity(response.data);
 
                 const countries = this.getCountries(response.data);
-
-                console.log(imageURLByStation);
 
                 this.setState({...this.state,
                     stationsData: response.data,
@@ -173,6 +173,14 @@ class App extends React.Component {
         });
     }
 
+    moveToStation(station) {
+        const stat = this.state.stationsData.find(st => st.station_name === station);
+        this.setState({...this.state,
+            mainView: false,
+            currentLatLng: {lat: parseFloat(stat.latitude), lng: parseFloat(stat.longitude)}
+        });
+    }
+
     changeCountry(countryName) {
         this.setState({...this.state, countryShowing: countryName})
     }
@@ -192,7 +200,7 @@ class App extends React.Component {
                     <MapView 
                     city={ this.state.cityShowing }
                     dataByCity={ this.state.dataByCity }
-                    station={ this.state.stationShowing } />
+                    latlng={ this.state.currentLatLng } />
                 }
                 <Submenu 
                 data={ this.state.mainView ?

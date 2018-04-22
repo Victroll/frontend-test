@@ -8,9 +8,10 @@ class MapView extends React.Component {
         this.refreshMarkers = this.refreshMarkers.bind(this);
 
         this.state = {
-            markers: [],
             map: null
         };
+
+        this.markers = [];
     }
 
     componentDidMount() {
@@ -25,13 +26,15 @@ class MapView extends React.Component {
         this.setState({...this.state, map: map});
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         this.refreshMarkers(this.props.city);
+        if (this.props.latlng)
+            this.state.map.panTo(this.props.latlng);
     }
 
     refreshMarkers(cityName, refreshThis = null) {
         // Remove previous markers
-        this.state.markers.forEach((marker) => marker.setMap(null));
+        this.markers.forEach((marker) => marker.setMap(null));
     
         // Create new markers
         const newMarkers = [];
@@ -57,8 +60,8 @@ class MapView extends React.Component {
             marker.addListener('click', (e) => this.selectFav(data));
             newMarkers.push(marker);
           });
-    
-        return newMarkers;
+
+        this.markers = newMarkers;
       }
 
     render() {
@@ -71,6 +74,7 @@ class MapView extends React.Component {
 
 MapView.propType = {
     city:           PropTypes.string,
+    latlng:         PropTypes.object,
     dataByCity:     PropTypes.object
 }
 
