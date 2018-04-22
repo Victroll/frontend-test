@@ -20,13 +20,9 @@ class CitiesView extends React.Component {
     generateButtons() {
         if (!this.props.cities) return [];
         const dbc = this.props.dataByCity;
+        const urls = this.props.urls;
         return [...this.props.cities].map(city => {
-            // Some cities may don't have any image, so we should find one
-            const cityWithHashCode = dbc[city].find((cityData) => cityData.picture_hashcode !== null);
-            const hashCode = cityWithHashCode ? cityWithHashCode.picture_hashcode : null;
-            const imageURL = hashCode ? 
-                `${BASE_URL}${hashCode.substring(0, 2)}/${hashCode.substring(2, 4)}/${hashCode}${SECOND_URL}50%3A50&crop=50%3A50${LAST_URL}`
-                : '';
+            const imageURL = urls[city];
             return <ImageButton key={ `${city}ImageButton` } name={ city } imageURL={ imageURL } showName={ true } className=''/>
         });
     }
@@ -44,7 +40,8 @@ class CitiesView extends React.Component {
 CitiesView.propTypes = {
     cities:     PropTypes.any,
     country:    PropTypes.string,
-    dataByCity: PropTypes.object
+    dataByCity: PropTypes.object,
+    urls:       PropTypes.object
 }
 
 export default CitiesView;
