@@ -15,10 +15,11 @@ class List extends React.Component {
 
     generateListItems() {
         if(!this.props.data) return;
+        const urls = this.props.urls;
         return Object.keys(this.props.data).map(country => 
             <ListItem 
             key={ country } title={ country } cities={ [...this.props.data].join(', ') }
-            imageURL />);
+            imageURL={ urls[country] } />);
     }
 
     render() {
@@ -34,7 +35,8 @@ class List extends React.Component {
 }
 
 List.propTypes = {
-    data:   PropTypes.object
+    data:   PropTypes.object,
+    urls:   PropTypes.object
 }
 
 

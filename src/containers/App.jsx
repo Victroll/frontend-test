@@ -61,7 +61,7 @@ class App extends React.Component {
 
     getImageURLBy(stationsData, byWhat) {
         const data = {};
-        const size = byWhat === 'country_name' ? '70%3A50&crop=100%3A150' : '50%3A50&crop=50%3A50';
+        const size = byWhat === 'country_name' ? '50%3A50&crop=50%3A50' : '100%3A150&crop=100%3A150';
 
         stationsData.forEach(station => {
             if (station.picture_hashcode && !data[station[byWhat]]) {
@@ -132,7 +132,9 @@ class App extends React.Component {
                 cities={ this.state.citiesByCountry['España'] } 
                 dataByCity={this.state.dataByCity }
                 urls={ this.state.imageURLByCity } />
-                <Submenu data={ this.state.citiesByCountry } />
+                <Submenu 
+                data={ this.state.citiesByCountry }
+                urls={ this.state.imageURLByCountry } />
             </div>
         );
     }
