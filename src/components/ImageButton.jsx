@@ -11,7 +11,7 @@ class ImageButton extends React.Component {
                     { this.props.showName && <h2>{ this.props.name }</h2> }
                     <img key={ `${this.props.name}ImgKey` } 
                     src={ this.props.imageURL } 
-                    alt={ `${this.props.name}Img` } />
+                    alt={ this.props.name } />
                 </button>
             </div>
         );
