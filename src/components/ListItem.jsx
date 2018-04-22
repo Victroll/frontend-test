@@ -5,7 +5,7 @@ class ListItem extends React.Component {
     render() {
         return (
             <li>
-                <button onClick={ () => {} }>
+                <button onClick={ () => this.props.onClick(this.props.title) }>
                     <img key={ `${this.props.title}ImgKey` }
                     src={ this.props.imageURL }
                     alt={ this.props.title} />

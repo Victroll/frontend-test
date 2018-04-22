@@ -21,6 +21,7 @@ class App extends React.Component {
         this.getImageURLBy = this.getImageURLBy.bind(this);
         this.goToMapView = this.goToMapView.bind(this);
         this.getStationsByCity = this.getStationsByCity.bind(this);
+        this.changeCountry = this.changeCountry.bind(this);
 
         this.state = {
             stationsData: [],
@@ -32,7 +33,9 @@ class App extends React.Component {
             imageURLByStation: {},
             countries: [],
             mainView: true,
-            cityShowing: ''
+            cityShowing: '',
+            stationShowing: '',
+            countryShowing: 'España'
         };
 
         // Fetch the stations data
@@ -170,32 +173,42 @@ class App extends React.Component {
         });
     }
 
+    changeCountry(countryName) {
+        this.setState({...this.state, countryShowing: countryName})
+    }
+
     render() {
         return (
             <div>
                 <Header openMenu={ () => {} }/>
                 { this.state.mainView ? 
                     <CitiesView 
-                    country={ 'España' }
-                    cities={ this.state.citiesByCountry['España'] } 
+                    country={ this.state.countryShowing }
+                    cities={ this.state.citiesByCountry[this.state.countryShowing] } 
                     dataByCity={this.state.dataByCity }
                     urls={ this.state.imageURLByCity }
                     onClick={ this.goToMapView } />
                     : 
                     <MapView 
                     city={ this.state.cityShowing }
-                    dataByCity={ this.state.dataByCity } />
+                    dataByCity={ this.state.dataByCity }
+                    station={ this.state.stationShowing } />
                 }
                 <Submenu 
                 data={ this.state.mainView ?
-                        this.state.countries
-                        :
-                        this.state.stationsByCity[this.state.cityShowing]
-                    }
+                    this.state.countries
+                    :
+                    this.state.stationsByCity[this.state.cityShowing]
+                }
                 urls={ this.state.mainView ? 
                     this.state.imageURLByCountry
                     :
                     this.state.imageURLByStation 
+                }
+                onClick={ this.state.mainView ? 
+                    this.changeCountry
+                    :
+                    this.moveToStation
                 } />
             </div>
         );
