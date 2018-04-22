@@ -20,13 +20,17 @@ class App extends React.Component {
         this.getDataByCity = this.getDataByCity.bind(this);
         this.getImageURLBy = this.getImageURLBy.bind(this);
         this.goToMapView = this.goToMapView.bind(this);
+        this.getStationsByCity = this.getStationsByCity.bind(this);
 
         this.state = {
             stationsData: [],
             citiesByCountry: {},
+            stationsByCity: {},
             dataByCity: {},
             imageURLByCountry: {},
             imageURLByCity: {},
+            imageURLByStation: {},
+            countries: [],
             mainView: true,
             cityShowing: ''
         };
@@ -47,13 +51,24 @@ class App extends React.Component {
                 const imageURLByCountry = this.getImageURLBy(response.data, 'country_name');
                 // Get hashes from each city
                 const imageURLByCity = this.getImageURLBy(response.data, 'city_name');
+                // Get hashes from each station
+                const imageURLByStation = this.getImageURLBy(response.data, 'station_name');
+                // Get stations by city
+                const stationsByCity = this.getStationsByCity(response.data);
+
+                const countries = this.getCountries(response.data);
+
+                console.log(imageURLByStation);
 
                 this.setState({...this.state,
                     stationsData: response.data,
+                    countries: countries,
                     citiesByCountry: citiesByCountry,
+                    stationsByCity: stationsByCity,
                     dataByCity: dataByCity,
                     imageURLByCountry: imageURLByCountry,
-                    imageURLByCity: imageURLByCity
+                    imageURLByCity: imageURLByCity,
+                    imageURLByStation: imageURLByStation
                 });
             })
             .catch((error) => {
@@ -61,9 +76,32 @@ class App extends React.Component {
             });
     }
 
+    getCountries(stationsData) {
+        const data = new Set();
+
+        stationsData.forEach(station => {
+            data.add(station.country_name);
+        });
+
+        return [...data];
+    }
+
+    getStationsByCity(stationsData) {
+        const data = {};
+
+        stationsData.forEach(station => {
+            if (!data[station.city_name])
+                data[station.city_name] = [];
+            
+            data[station.city_name].push(station.station_name);
+        });
+
+        return data;
+    }
+
     getImageURLBy(stationsData, byWhat) {
         const data = {};
-        const size = byWhat === 'country_name' ? '50%3A50&crop=50%3A50' : '100%3A150&crop=100%3A150';
+        const size = byWhat === 'country_name' || byWhat === 'station_name' ? '50%3A50&crop=50%3A50' : '100%3A150&crop=100%3A150';
 
         stationsData.forEach(station => {
             if (station.picture_hashcode && !data[station[byWhat]]) {
@@ -149,8 +187,16 @@ class App extends React.Component {
                     dataByCity={ this.state.dataByCity } />
                 }
                 <Submenu 
-                data={ this.state.citiesByCountry }
-                urls={ this.state.imageURLByCountry } />
+                data={ this.state.mainView ?
+                        this.state.countries
+                        :
+                        this.state.stationsByCity[this.state.cityShowing]
+                    }
+                urls={ this.state.mainView ? 
+                    this.state.imageURLByCountry
+                    :
+                    this.state.imageURLByStation 
+                } />
             </div>
         );
     }

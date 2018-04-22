@@ -2,10 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ImageButton from '../components/ImageButton';
 
-const BASE_URL = 'https://imgs-akamai.mnstatic.com/';
-const SECOND_URL = '.jpg?output-quality=75&output-format=progressive-jpeg&interpolation=lanczos-none&fit=around%7C';
-const LAST_URL = '%3B*%2C*';
-
 class CitiesView extends React.Component {
     constructor(props) {
         super(props);
@@ -19,7 +15,6 @@ class CitiesView extends React.Component {
 
     generateButtons() {
         if (!this.props.cities) return [];
-        const dbc = this.props.dataByCity;
         const urls = this.props.urls;
         return [...this.props.cities].map(city => {
             const imageURL = urls[city];

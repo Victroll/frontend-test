@@ -5,7 +5,7 @@ class Header extends React.Component {
     render() {
         return (
             <button onClick={ this.props.openMenu }>
-                <img src='./images/ico-filter.svg' />
+                <img src='./images/ico-filter.svg' alt='Submenu' />
             </button>
         );
     }

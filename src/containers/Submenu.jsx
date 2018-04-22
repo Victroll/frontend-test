@@ -16,7 +16,7 @@ class Submenu extends React.Component {
 }
 
 Submenu.propTypes = {
-    data:       PropTypes.object,
+    data:       PropTypes.array,
     urls:       PropTypes.object,
     onClick:    PropTypes.func
 }

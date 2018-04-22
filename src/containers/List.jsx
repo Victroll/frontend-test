@@ -2,10 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '../components/ListItem';
 
-const BASE_URL = 'https://imgs-akamai.mnstatic.com/';
-const SECOND_URL = '.jpg?output-quality=75&output-format=progressive-jpeg&interpolation=lanczos-none&fit=around%7C';
-const LAST_URL = '%3B*%2C*';
-
 class List extends React.Component {
     constructor(props) {
         super(props);
@@ -16,10 +12,10 @@ class List extends React.Component {
     generateListItems() {
         if(!this.props.data) return;
         const urls = this.props.urls;
-        return Object.keys(this.props.data).map(country => 
+        return this.props.data.map(element => 
             <ListItem 
-            key={ country } title={ country } cities={ [...this.props.data].join(', ') }
-            imageURL={ urls[country] } onClick={ this.props.onClick } />);
+            key={ element } title={ element }
+            imageURL={ urls[element] } onClick={ this.props.onClick } />);
     }
 
     render() {
@@ -35,7 +31,7 @@ class List extends React.Component {
 }
 
 List.propTypes = {
-    data:       PropTypes.object,
+    data:       PropTypes.array,
     urls:       PropTypes.object,
     onClick:    PropTypes.func
 }
