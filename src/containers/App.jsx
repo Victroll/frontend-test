@@ -3,6 +3,7 @@ import { get } from 'axios';
 import CitiesView from './CitiesView';
 import Header from '../components/Header';
 import Submenu from './Submenu';
+import MapView from './MapView';
 
 const DATA_FETCH_URL =
 'https://gist.githubusercontent.com/inakivb/943ed6b3a8bcc667c1e1147b7591e32f/raw/355b2d67aaea30fd322c7d1e1a8660480609d67a/stations.json';
@@ -127,11 +128,12 @@ class App extends React.Component {
         return (
             <div>
                 <Header openMenu={ () => {} }/>
-                <CitiesView 
+                {/* <CitiesView 
                 country={ 'España' }
                 cities={ this.state.citiesByCountry['España'] } 
                 dataByCity={this.state.dataByCity }
-                urls={ this.state.imageURLByCity } />
+                urls={ this.state.imageURLByCity } /> */}
+                <MapView />
                 <Submenu 
                 data={ this.state.citiesByCountry }
                 urls={ this.state.imageURLByCountry } />
