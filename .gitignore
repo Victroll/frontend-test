@@ -1,0 +1,4 @@
+/node_modules
+
+# Although there is no gonna be any build, always is good to put this
+/build
