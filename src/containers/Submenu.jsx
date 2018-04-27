@@ -9,7 +9,7 @@ class Submenu extends React.Component {
                 <button onClick={ () => {} }>
                     <h1>{ this.props.title }</h1>
                 </button>
-                <List data={ this.props.data } urls={ this.props.urls } onClick={ this.props.onClick } />
+                <List data={ this.props.data } urls={ this.props.urls } />
             </div>
         );
     }
@@ -17,8 +17,7 @@ class Submenu extends React.Component {
 
 Submenu.propTypes = {
     data:       PropTypes.array,
-    urls:       PropTypes.object,
-    onClick:    PropTypes.func
+    urls:       PropTypes.object
 }
 
 export default Submenu;

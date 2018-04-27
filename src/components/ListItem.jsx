@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { showCountry } from '../actions/actions';
 
 class ListItem extends React.Component {
     render() {
         return (
             <li>
-                <button onClick={ () => this.props.onClick(this.props.title) }>
+                <button onClick={ () => this.props.mainView ? this.props.showCountry(this.props.title) : {} }>
                     <img key={ `${this.props.title}ImgKey` }
                     src={ this.props.imageURL }
                     alt={ this.props.title} />
@@ -20,8 +22,22 @@ class ListItem extends React.Component {
 ListItem.propType = {
     title:      PropTypes.string,
     imageURL:   PropTypes.string,
-    cities:     PropTypes.string,
-    onClick:    PropTypes.string
+    cities:     PropTypes.string
 }
 
-export default ListItem;
+const mapStateToProps = store => {
+    return {
+        mainView: store.mainView
+    };
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        showCountry: (country) => dispatch(showCountry(country))
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ListItem);

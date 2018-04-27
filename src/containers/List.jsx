@@ -15,7 +15,7 @@ class List extends React.Component {
         return this.props.data.map(element => 
             <ListItem 
             key={ element } title={ element }
-            imageURL={ urls[element] } onClick={ this.props.onClick } />);
+            imageURL={ urls[element] } />);
     }
 
     render() {
@@ -32,8 +32,7 @@ class List extends React.Component {
 
 List.propTypes = {
     data:       PropTypes.array,
-    urls:       PropTypes.object,
-    onClick:    PropTypes.func
+    urls:       PropTypes.object
 }
 
 

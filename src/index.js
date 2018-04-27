@@ -7,7 +7,12 @@ import reducer from './reducer';
 
 const store = createStore(
     reducer,
-    {}
+    {
+        currentCountry: 'España',
+        currentCity: 'Madrid',
+        currentLatlng: {},
+        mainView: true
+    }
 );
 
 ReactDOM.render(

@@ -4,6 +4,7 @@ import CitiesView from './CitiesView';
 import Header from '../components/Header';
 import Submenu from './Submenu';
 import MapView from './MapView';
+import { connect } from 'react-redux';
 
 const DATA_FETCH_URL =
 'https://gist.githubusercontent.com/inakivb/943ed6b3a8bcc667c1e1147b7591e32f/raw/355b2d67aaea30fd322c7d1e1a8660480609d67a/stations.json';
@@ -21,7 +22,6 @@ class App extends React.Component {
         this.getImageURLBy = this.getImageURLBy.bind(this);
         this.goToMapView = this.goToMapView.bind(this);
         this.getStationsByCity = this.getStationsByCity.bind(this);
-        this.changeCountry = this.changeCountry.bind(this);
         this.moveToStation = this.moveToStation.bind(this);
 
         this.state = {
@@ -36,8 +36,7 @@ class App extends React.Component {
             mainView: true,
             cityShowing: '',
             currentLatLng: null,
-            stationShowing: '',
-            countryShowing: 'España'
+            stationShowing: ''
         };
 
         // Fetch the stations data
@@ -181,18 +180,14 @@ class App extends React.Component {
         });
     }
 
-    changeCountry(countryName) {
-        this.setState({...this.state, countryShowing: countryName})
-    }
-
     render() {
         return (
             <div>
                 <Header openMenu={ () => {} }/>
                 { this.state.mainView ? 
                     <CitiesView 
-                    country={ this.state.countryShowing }
-                    cities={ this.state.citiesByCountry[this.state.countryShowing] } 
+                    country={ this.props.currentCountry }
+                    cities={ this.state.citiesByCountry[this.props.currentCountry] } 
                     dataByCity={this.state.dataByCity }
                     urls={ this.state.imageURLByCity }
                     onClick={ this.goToMapView } />
@@ -223,4 +218,15 @@ class App extends React.Component {
     }
 }
 
-export default App;
+const mapStateToProps = store => {
+    return {
+        currentCountry: store.currentCountry,
+        stationShowing: store.stationShowing,
+        cityShowing: store.cityShowing,
+        mainView: store.mainView
+    };
+}
+
+export default connect(
+    mapStateToProps
+)(App);

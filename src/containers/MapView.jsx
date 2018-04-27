@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class MapView extends React.Component {
     constructor(props) {
@@ -95,4 +96,13 @@ MapView.propType = {
     dataByCity:     PropTypes.object
 }
 
-export default MapView;
+const mapStateToProps = store => {
+    return {
+        city: store.currentCity,
+        latlng: store.currentLatlng
+    };
+}
+
+export default connect(
+    mapStateToProps
+)(MapView);
