@@ -38,7 +38,8 @@ List.propTypes = {
 
 const mapStateToProps = store => {
     return {
-        data: store.mainView ? store.countries : store.currentStations
+        data: store.mainView ? store.countries : store.currentStations,
+        urls: store.mainView ? store.imageURLByCountry : store.imageURLByStation
     };
 }
 

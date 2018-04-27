@@ -9,14 +9,10 @@ class Submenu extends React.Component {
                 <button onClick={ () => {} }>
                     <h1>{ this.props.title }</h1>
                 </button>
-                <List urls={ this.props.urls } />
+                <List />
             </div>
         );
     }
-}
-
-Submenu.propTypes = {
-    urls:       PropTypes.object
 }
 
 export default Submenu;

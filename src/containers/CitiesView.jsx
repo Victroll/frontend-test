@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImageButton from '../components/ImageButton';
+import { connect } from 'react-redux';
 
 class CitiesView extends React.Component {
     constructor(props) {
@@ -40,10 +41,17 @@ class CitiesView extends React.Component {
 
 CitiesView.propTypes = {
     cities:     PropTypes.any,
-    country:    PropTypes.string,
-    dataByCity: PropTypes.object,
     urls:       PropTypes.object,
     onClick:    PropTypes.func
 }
 
-export default CitiesView;
+const mapStateToProps = store => {
+    return {
+        cities: store.citiesByCountry[store.currentCountry],
+        urls: store.imageURLByCity
+    };
+}
+
+export default connect(
+    mapStateToProps
+)(CitiesView);
