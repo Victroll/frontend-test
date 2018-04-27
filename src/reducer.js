@@ -14,10 +14,6 @@ export default function(state, action) {
             return {...state,
                 currentCountry: action.country
             };
-        case types.SHOW_STATION:
-            return {...state,
-                currentStation: action.station
-            };
         case types.FETCH_DATA:
             // Get an array of countries
             const countries = getCountries(action.data)
@@ -56,6 +52,19 @@ export default function(state, action) {
             return {...state,
                 map: map,
                 markers: newMarkers
+            };
+        case types.SHOW_STATION:
+            const station = state.stationsData.find(st => st.station_name === action.station)
+            const newLatlng = {
+                lat: parseFloat(station.latitude),
+                lng: parseFloat(station.longitude)
+            };
+
+            state.map.panTo(newLatlng);
+
+            return {...state,
+                currentStation: action.station,
+                currentLatlng: newLatlng
             };
         case types.SHOW_MAP_VIEW:
             return {...state,

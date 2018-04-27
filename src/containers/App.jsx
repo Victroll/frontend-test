@@ -71,17 +71,9 @@ class App extends React.Component {
                     <CitiesView 
                     onClick={ this.goToMapView } />
                     : 
-                    <MapView 
-                    city={ this.state.cityShowing }
-                    dataByCity={ this.state.dataByCity }
-                    latlng={ this.state.currentLatLng } />
+                    <MapView />
                 }
-                <Submenu 
-                data={ this.state.mainView ?
-                    this.state.countries
-                    :
-                    this.state.stationsByCity[this.state.cityShowing]
-                } />
+                <Submenu />
             </div>
         );
     }
@@ -89,9 +81,11 @@ class App extends React.Component {
 
 const mapStateToProps = store => {
     return {
+        countries: store.countries,
         stationShowing: store.stationShowing,
-        cityShowing: store.cityShowing,
-        mainView: store.mainView
+        currentCity: store.currentCity,
+        mainView: store.mainView,
+        stationsByCity: store.stationsByCity
     };
 }
 
