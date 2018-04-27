@@ -9,14 +9,13 @@ class Submenu extends React.Component {
                 <button onClick={ () => {} }>
                     <h1>{ this.props.title }</h1>
                 </button>
-                <List data={ this.props.data } urls={ this.props.urls } />
+                <List urls={ this.props.urls } />
             </div>
         );
     }
 }
 
 Submenu.propTypes = {
-    data:       PropTypes.array,
     urls:       PropTypes.object
 }
 

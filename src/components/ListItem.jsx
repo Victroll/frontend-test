@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { showCountry } from '../actions/actions';
+import { showCountry, showStation } from '../actions/actions';
 
 class ListItem extends React.Component {
     render() {
         return (
             <li>
-                <button onClick={ () => this.props.mainView ? this.props.showCountry(this.props.title) : {} }>
+                <button onClick={ () => this.props.mainView ? 
+                    this.props.showCountry(this.props.title) : 
+                    this.props.showStation(this.props.title) }>
                     <img key={ `${this.props.title}ImgKey` }
                     src={ this.props.imageURL }
                     alt={ this.props.title} />
@@ -33,7 +35,8 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        showCountry: (country) => dispatch(showCountry(country))
+        showCountry: country => dispatch(showCountry(country)),
+        showStation: station => dispatch(showStation(station))
     };
 }
 

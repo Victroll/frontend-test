@@ -10,8 +10,10 @@ const store = createStore(
     {
         currentCountry: 'España',
         currentCity: 'Madrid',
+        currentStation: 'Atocha',
         currentLatlng: {},
-        mainView: true
+        mainView: true,
+        countries: []
     }
 );
 

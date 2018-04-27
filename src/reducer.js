@@ -10,6 +10,25 @@ export default function(state, action) {
             return {...state,
                 currentCountry: action.country
             };
+        case types.SHOW_STATION:
+            return {...state,
+                currentStation: action.station
+            };
+        case types.FETCH_DATA:
+        const countries = getCountries(action.data)
+        return {...state,
+            countries: countries
+        };
     }
     return state;
+}
+
+function getCountries(stationsData) {
+    const data = new Set();
+
+    stationsData.forEach(station => {
+        data.add(station.country_name);
+    });
+
+    return [...data];
 }

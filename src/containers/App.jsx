@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Submenu from './Submenu';
 import MapView from './MapView';
 import { connect } from 'react-redux';
+import { fetchData } from '../actions/actions';
 
 const DATA_FETCH_URL =
 'https://gist.githubusercontent.com/inakivb/943ed6b3a8bcc667c1e1147b7591e32f/raw/355b2d67aaea30fd322c7d1e1a8660480609d67a/stations.json';
@@ -32,7 +33,6 @@ class App extends React.Component {
             imageURLByCountry: {},
             imageURLByCity: {},
             imageURLByStation: {},
-            countries: [],
             mainView: true,
             cityShowing: '',
             currentLatLng: null,
@@ -60,11 +60,10 @@ class App extends React.Component {
                 // Get stations by city
                 const stationsByCity = this.getStationsByCity(response.data);
 
-                const countries = this.getCountries(response.data);
+                this.props.fetchData(response.data);
 
                 this.setState({...this.state,
                     stationsData: response.data,
-                    countries: countries,
                     citiesByCountry: citiesByCountry,
                     stationsByCity: stationsByCity,
                     dataByCity: dataByCity,
@@ -76,16 +75,6 @@ class App extends React.Component {
             .catch((error) => {
                 console.log(error);
             });
-    }
-
-    getCountries(stationsData) {
-        const data = new Set();
-
-        stationsData.forEach(station => {
-            data.add(station.country_name);
-        });
-
-        return [...data];
     }
 
     getStationsByCity(stationsData) {
@@ -227,6 +216,13 @@ const mapStateToProps = store => {
     };
 }
 
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        fetchData: (data) => dispatch(fetchData(data))
+    };
+}
+
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(App);

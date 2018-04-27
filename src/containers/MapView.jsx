@@ -91,14 +91,14 @@ class MapView extends React.Component {
 }
 
 MapView.propType = {
-    city:           PropTypes.string,
+    currentCity:           PropTypes.string,
     latlng:         PropTypes.object,
     dataByCity:     PropTypes.object
 }
 
 const mapStateToProps = store => {
     return {
-        city: store.currentCity,
+        currentCity: store.currentCity,
         latlng: store.currentLatlng
     };
 }

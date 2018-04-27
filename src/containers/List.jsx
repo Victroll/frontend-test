@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '../components/ListItem';
+import { connect } from 'react-redux';
 
 class List extends React.Component {
     constructor(props) {
@@ -35,5 +36,12 @@ List.propTypes = {
     urls:       PropTypes.object
 }
 
+const mapStateToProps = store => {
+    return {
+        data: store.mainView ? store.countries : store.currentStations
+    };
+}
 
-export default List;
+export default connect(
+    mapStateToProps
+)(List);

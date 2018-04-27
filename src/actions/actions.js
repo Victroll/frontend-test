@@ -13,3 +13,17 @@ export function showCountry(country) {
         country: country
     };
 }
+
+export function showStation(station) {
+    return {
+        type: types.SHOW_STATION,
+        station: station
+    };
+}
+
+export function fetchData(data) {
+    return {
+        type: types.FETCH_DATA,
+        data: data
+    };
+}
