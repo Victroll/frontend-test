@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createMap } from '../actions/actions';
 
 class MapView extends React.Component {
     constructor(props) {
@@ -17,21 +18,19 @@ class MapView extends React.Component {
     }
 
     componentDidMount() {
-        const map = new window.google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
-            center: {lat: this.props.dataByCity[this.props.city][0].latitude,
-                    lng:  this.props.dataByCity[this.props.city][0].longitude},
-            mapTypeId: 'roadmap',
-            disableDefaultUI: true
-        });
+        this.props.createMap();
+    }
 
-        this.setState({...this.state, map: map});
+    shouldComponentUpdate(nextProps) {
+        return this.props.currentLatlng.lat !== nextProps.currentLatlng.lat ||
+            this.props.currentLatlng.lng !== nextProps.currentLatlng.lng;
     }
 
     componentDidUpdate(prevProps) {
+        this.state.map.panTo(this.props.latlng);
         this.refreshMarkers(this.props.city);
-        if (this.props.latlng)
-            this.state.map.panTo(this.props.latlng);
+        // if (this.props.latlng)
+        //     this.state.map.panTo(this.props.latlng);
     }
 
     refreshMarkers(cityName, refreshThis = null) {
@@ -103,6 +102,13 @@ const mapStateToProps = store => {
     };
 }
 
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        createMap: () => dispatch(createMap())
+    };
+}
+
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(MapView);

@@ -27,3 +27,17 @@ export function fetchData(data) {
         data: data
     };
 }
+
+export function showMapView(city, map) {
+    return {
+        type: types.SHOW_MAP_VIEW,
+        city: city,
+        map: map
+    }
+}
+
+export function createMap() {
+    return {
+        type: types.CREATE_MAP
+    };
+}

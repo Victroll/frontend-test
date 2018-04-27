@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { showMapView } from '../actions/actions';
 
 class ImageButton extends React.Component {
     render() {
@@ -7,7 +9,7 @@ class ImageButton extends React.Component {
             <div className='image-button'>
                 <button className={ this.props.className } 
                 key={ `${this.props.name}Button` } 
-                onClick={ () => this.props.onClick(this.props.name) }>
+                onClick={ () => this.props.showMapView(this.props.name) }>
                     { this.props.showName && <h2>{ this.props.name }</h2> }
                     <img key={ `${this.props.name}ImgKey` } 
                     src={ this.props.imageURL } 
@@ -22,8 +24,16 @@ ImageButton.propTypes = {
     name:       PropTypes.string,
     imageURL:   PropTypes.string,
     showName:   PropTypes.bool,
-    className:  PropTypes.string,
-    onClick:    PropTypes.func
+    className:  PropTypes.string
 }
 
-export default ImageButton;
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        showMapView: (city) => dispatch(showMapView(city))
+    };
+}
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(ImageButton);

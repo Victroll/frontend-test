@@ -24,7 +24,9 @@ const store = createStore(
         stationsData: [],
         citiesByCountry: {},
         stationsByCity: {},
-        dataByCity: {}
+        dataByCity: {},
+        markers: [],
+        map: null
     }
 );
 
