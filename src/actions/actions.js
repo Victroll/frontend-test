@@ -41,3 +41,10 @@ export function createMap() {
         type: types.CREATE_MAP
     };
 }
+
+export function toggleFav(data) {
+    return {
+        type: types.TOGGLE_FAV,
+        data: data
+    };
+}

@@ -7,7 +7,6 @@ class MapView extends React.Component {
     constructor(props) {
         super(props);
 
-        this.refreshMarkers = this.refreshMarkers.bind(this);
         this.selectFav = this.selectFav.bind(this);
 
         this.state = {
@@ -19,45 +18,6 @@ class MapView extends React.Component {
 
     componentDidMount() {
         this.props.createMap();
-    }
-
-    componentDidUpdate(prevProps) {
-        // this.state.map.panTo(this.props.latlng);
-        // this.refreshMarkers(this.props.city);
-        // if (this.props.latlng)
-        //     this.state.map.panTo(this.props.latlng);
-    }
-
-    refreshMarkers(cityName, refreshThis = null) {
-        // Remove previous markers
-        this.markers.forEach((marker) => marker.setMap(null));
-
-        // Create new markers
-        const newMarkers = [];
-
-        if (refreshThis)
-            refreshThis.forEach((data) => {
-            const marker = new window.google.maps.Marker({
-                map: this.state.map,
-                position: {lat: data.latitude, lng: data.longitude},
-                icon: data.fav ? './images/heart.svg' : ''
-            });
-            marker.addListener('click', (e) => this.selectFav(data));
-            newMarkers.push(marker);
-            });
-        else
-            this.props.dataByCity[cityName].forEach((data) => {
-            const marker = new window.google.maps.Marker({
-                map: this.state.map,
-                animation: window.google.maps.Animation.DROP,
-                position: {lat: data.latitude, lng: data.longitude},
-                icon: data.fav ? './images/heart.svg' : ''
-            });
-            marker.addListener('click', (e) => this.selectFav(data));
-            newMarkers.push(marker);
-            });
-
-        this.markers = newMarkers;
     }
 
     selectFav(data) {

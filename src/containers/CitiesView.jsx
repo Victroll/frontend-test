@@ -8,10 +8,6 @@ class CitiesView extends React.Component {
         super(props);
 
         this.generateButtons = this.generateButtons.bind(this);
-
-        this.state = {
-            imageButtons: []
-        };
     }
 
     generateButtons() {

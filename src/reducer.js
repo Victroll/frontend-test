@@ -1,10 +1,12 @@
 import * as types from './constants/actions';
+import { toggleFav } from './actions/actions';
 
 const BASE_URL = 'https://imgs-akamai.mnstatic.com/';
 const SECOND_URL = '.jpg?output-quality=75&output-format=progressive-jpeg&interpolation=lanczos-none&fit=around%7C';
 const LAST_URL = '%3B*%2C*';
 
 export default function(state, action) {
+    var newMarkers = [];
     switch(action.type) {
         case types.SHOW_CITY:
             return {...state,
@@ -47,7 +49,7 @@ export default function(state, action) {
                 mapTypeId: 'roadmap',
                 disableDefaultUI: true
             });
-            const newMarkers = refreshMarkers(state.markers, state.currentCity, state, map);
+            newMarkers = refreshMarkers(state.markers, state.currentCity, state, map);
 
             return {...state,
                 map: map,
@@ -75,8 +77,20 @@ export default function(state, action) {
                     lng: state.dataByCity[action.city][0].longitude
                 }
             };
+        case types.TOGGLE_FAV:
+            newMarkers = refreshMarkers(state.markers, state.currentCity, state);
+            return {...state,
+                markers: newMarkers
+            };
     }
     return state;
+}
+
+function selectFav(data, state) {
+    state.dataByCity[data.city_name].forEach((station) => {
+        if (station.id === data.id)
+            station.fav = !station.fav;
+    });
 }
 
 function refreshMarkers(markers, cityName, state, map = null) {
@@ -93,7 +107,7 @@ function refreshMarkers(markers, cityName, state, map = null) {
             position: {lat: data.latitude, lng: data.longitude},
             icon: data.fav ? './images/heart.svg' : ''
         });
-        marker.addListener('click', (e) => {});
+        marker.addListener('click', () => { toggleFav(data) });
         newMarkers.push(marker);
     });
 
