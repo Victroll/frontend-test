@@ -13,10 +13,13 @@ class List extends React.Component {
     generateListItems() {
         if(!this.props.data) return;
         const urls = this.props.urls;
-        return this.props.data.map(element => 
-            <ListItem 
+        return this.props.data.map(element => {
+            const subData = this.props.subtitleData[element] ? [...this.props.subtitleData[element]] : null;
+            return <ListItem 
             key={ element } title={ element }
-            imageURL={ urls[element] } />);
+            imageURL={ urls[element] }
+            subtitle={ subData ? `${subData.slice(0, -1).join(', ')}${subData.length > 1 ? ` y ${subData[subData.length - 1]}` : ''}` : ''} />;
+        });
     }
 
     render() {
@@ -39,7 +42,8 @@ List.propTypes = {
 const mapStateToProps = store => {
     return {
         data: store.mainView ? store.countries : store.stationsByCity[store.currentCity],
-        urls: store.mainView ? store.imageURLByCountry : store.imageURLByStation
+        urls: store.mainView ? store.imageURLByCountry : store.imageURLByStation,
+        subtitleData: store.mainView ? store.citiesByCountry : []
     };
 }
 

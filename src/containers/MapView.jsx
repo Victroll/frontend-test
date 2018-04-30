@@ -38,9 +38,9 @@ class MapView extends React.Component {
 
     render() {
         return (
-            <section>
+            <section className='map'>
                 <button id='goBack' onClick={ this.props.showCitiesView } ></button>
-                <div id='map' style={{ height: '200px', width: '100%' }}>
+                <div id='map' style={{ height: 'inherit', width: 'inherit' }}>
                 </div>
             </section>
         );

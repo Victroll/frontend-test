@@ -13,8 +13,10 @@ class ListItem extends React.Component {
                     <img key={ `${this.props.title}ImgKey` }
                     src={ this.props.imageURL }
                     alt={ this.props.title} />
-                    <h1>{ this.props.title }</h1>
-                    <h2>{ this.props.cities }</h2>
+                    <div className='title-subtitle'>
+                        <h1>{ this.props.title }</h1>
+                        <h2>{ this.props.subtitle }</h2>
+                    </div>
                 </button>
             </li>
         );

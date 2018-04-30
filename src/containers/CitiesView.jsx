@@ -28,7 +28,7 @@ class CitiesView extends React.Component {
     render() {
         const imageButtons = this.generateButtons();
         return (
-            <section>
+            <section style={{ paddingTop: '3rem' }}>
                 <h1 className='title'>Ciudades</h1>
                 <div className='cities-view'>
                     { imageButtons }

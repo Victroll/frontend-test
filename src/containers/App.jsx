@@ -1,5 +1,4 @@
 import React from 'react';
-import { get } from 'axios';
 import CitiesView from './CitiesView';
 import Header from '../components/Header';
 import Submenu from './Submenu';

@@ -85,15 +85,9 @@ export default function(state, action) {
                 submenuSubclass: state.isSubmenuShowing ? 'close' : 'open',
                 isSubmenuShowing: !state.isSubmenuShowing
             };
+        default:
+            return state;
     }
-    return state;
-}
-
-function selectFav(data, state) {
-    state.dataByCity[data.city_name].forEach((station) => {
-        if (station.id === data.id)
-            station.fav = !station.fav;
-    });
 }
 
 function refreshMarkers(markers, cityName, state, map = null, toggleFav = null) {
