@@ -1,5 +1,4 @@
 import * as types from './constants/actions';
-import { toggleFav } from './actions/actions';
 
 const BASE_URL = 'https://imgs-akamai.mnstatic.com/';
 const SECOND_URL = '.jpg?output-quality=75&output-format=progressive-jpeg&interpolation=lanczos-none&fit=around%7C';
@@ -77,10 +76,9 @@ export default function(state, action) {
                     lng: state.dataByCity[action.city][0].longitude
                 }
             };
-        case types.TOGGLE_FAV:
-            newMarkers = refreshMarkers(state.markers, state.currentCity, state);
+        case types.SHOW_CITIES_VIEW:
             return {...state,
-                markers: newMarkers
+                mainView: true
             };
     }
     return state;
@@ -93,7 +91,7 @@ function selectFav(data, state) {
     });
 }
 
-function refreshMarkers(markers, cityName, state, map = null) {
+function refreshMarkers(markers, cityName, state, map = null, toggleFav = null) {
     // Remove previous markers
     markers.forEach((marker) => marker.setMap(null));
 
@@ -107,7 +105,6 @@ function refreshMarkers(markers, cityName, state, map = null) {
             position: {lat: data.latitude, lng: data.longitude},
             icon: data.fav ? './images/heart.svg' : ''
         });
-        marker.addListener('click', () => { toggleFav(data) });
         newMarkers.push(marker);
     });
 

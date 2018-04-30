@@ -36,15 +36,14 @@ export function showMapView(city, map) {
     }
 }
 
-export function createMap() {
+export function showCitiesView() {
     return {
-        type: types.CREATE_MAP
+        type: types.SHOW_CITIES_VIEW
     };
 }
 
-export function toggleFav(data) {
+export function createMap() {
     return {
-        type: types.TOGGLE_FAV,
-        data: data
+        type: types.CREATE_MAP
     };
 }
