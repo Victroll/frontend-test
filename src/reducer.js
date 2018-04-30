@@ -43,7 +43,7 @@ export default function(state, action) {
             };
         case types.CREATE_MAP:
             const map = new window.google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
+                zoom: 15,
                 center: state.currentLatlng,
                 mapTypeId: 'roadmap',
                 disableDefaultUI: true

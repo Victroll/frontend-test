@@ -9,7 +9,7 @@ class Submenu extends React.Component {
             <section className={`list ${this.props.subClass}`}>
                 <button className='submenu-header' onClick={ this.props.hideMenu }>
                     <h1>{ this.props.title }</h1>
-                    <span>&#9660;</span>
+                    <i className="fas fa-caret-down"></i>
                 </button>
                 <List />
             </section>

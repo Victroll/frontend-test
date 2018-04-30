@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createMap, showCitiesView } from '../actions/actions';
+import { createMap } from '../actions/actions';
 
 class MapView extends React.Component {
     constructor(props) {
@@ -39,8 +39,7 @@ class MapView extends React.Component {
     render() {
         return (
             <section className='map'>
-                <button id='goBack' onClick={ this.props.showCitiesView } ></button>
-                <div id='map' style={{ height: 'inherit', width: 'inherit' }}>
+                <div id='map' style={{ height: 'inherit', width: 'inherit'}}>
                 </div>
             </section>
         );
@@ -62,8 +61,7 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        createMap: () => dispatch(createMap()),
-        showCitiesView: () => dispatch(showCitiesView())
+        createMap: () => dispatch(createMap())
     };
 }
 

@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleSubmenu } from '../actions/actions';
+import { toggleSubmenu, showCitiesView } from '../actions/actions';
 
 class Header extends React.Component {
     render() {
         return (
             <section className='header'>
+                <button id='goBack' onClick={ this.props.showCitiesView } 
+                style={{ paddingLeft: '1rem'}} >
+                    <i className="fas fa-caret-left"></i>
+                </button>
                 <button onClick={ this.props.toggle }>
                     <img src='./images/ico-filter.svg' alt='Submenu' />
                 </button>
@@ -16,7 +20,8 @@ class Header extends React.Component {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        toggle: () => dispatch(toggleSubmenu())
+        toggle: () => dispatch(toggleSubmenu()),
+        showCitiesView: () => dispatch(showCitiesView())
     };
 }
 
