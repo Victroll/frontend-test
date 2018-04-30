@@ -7,7 +7,7 @@ class ListItem extends React.Component {
     render() {
         return (
             <li>
-                <button onClick={ () => this.props.mainView ? 
+                <button style={{width: '100vw'}} onClick={ () => this.props.mainView ? 
                     this.props.showCountry(this.props.title) : 
                     this.props.showStation(this.props.title) }>
                     <img key={ `${this.props.title}ImgKey` }
@@ -18,6 +18,11 @@ class ListItem extends React.Component {
                         <h2>{ this.props.subtitle }</h2>
                     </div>
                 </button>
+                { !this.props.mainView &&
+                <button className='heart-button' onClick={ () => console.log('Click') }>
+                    <i className="far fa-heart"></i>
+                </button>
+                }
             </li>
         );
     }
