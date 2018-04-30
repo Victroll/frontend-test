@@ -80,6 +80,11 @@ export default function(state, action) {
             return {...state,
                 mainView: true
             };
+        case types.TOGGLE_SUBMENU:
+            return {...state,
+                submenuSubclass: state.isSubmenuShowing ? 'close' : 'open',
+                isSubmenuShowing: !state.isSubmenuShowing
+            };
     }
     return state;
 }

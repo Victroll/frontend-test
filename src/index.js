@@ -27,7 +27,9 @@ const store = createStore(
         stationsByCity: {},
         dataByCity: {},
         markers: [],
-        map: null
+        map: null,
+        submenuSubclass: '',
+        isSubmenuShowing: false
     }
 );
 

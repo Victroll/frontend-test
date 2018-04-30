@@ -17,7 +17,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Header openMenu={ () => {} }/>
+                <Header />
                 { this.props.mainView ? 
                     <CitiesView />
                     : <MapView />

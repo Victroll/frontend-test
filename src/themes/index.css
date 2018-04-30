@@ -92,13 +92,37 @@ img {
   justify-content: flex-end;
 }
 
+@keyframes submenuOpen {
+  from {
+    top: 100%;
+  }
+  to {
+    top: 50%;
+  }
+}
+@keyframes submenuClose {
+  from {
+    top: 50%;
+  }
+  to {
+    top: 100%;
+  }
+}
 .list {
   position: fixed;
-  top: 50%;
   width: 100vw;
   background-color: white;
   border-radius: 4px;
   box-shadow: 1px -5px 10px rgba(0, 0, 0, 0.35);
+  overflow-y: scroll;
+}
+.list.open {
+  animation: submenuOpen 1s ease;
+  animation-fill-mode: forwards;
+}
+.list.close {
+  animation: submenuClose 1s ease;
+  animation-fill-mode: forwards;
 }
 .list ul {
   display: grid;

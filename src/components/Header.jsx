@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { toggleSubmenu } from '../actions/actions';
 
 class Header extends React.Component {
     render() {
         return (
             <section className='header'>
-                <button onClick={ this.props.openMenu }>
+                <button onClick={ this.props.toggle }>
                     <img src='./images/ico-filter.svg' alt='Submenu' />
                 </button>
             </section>
@@ -13,8 +14,13 @@ class Header extends React.Component {
     }
 }
 
-Header.propTypes = {
-    openMenu:   PropTypes.func
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        toggle: () => dispatch(toggleSubmenu())
+    };
 }
 
-export default Header;
+export default connect(
+    null,
+    mapDispatchToProps
+)(Header);

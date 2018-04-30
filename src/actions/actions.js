@@ -47,3 +47,9 @@ export function createMap() {
         type: types.CREATE_MAP
     };
 }
+
+export function toggleSubmenu() {
+    return {
+        type: types.TOGGLE_SUBMENU
+    };
+}
