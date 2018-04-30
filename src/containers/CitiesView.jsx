@@ -28,9 +28,12 @@ class CitiesView extends React.Component {
     render() {
         const imageButtons = this.generateButtons();
         return (
-            <div>
-                { imageButtons }
-            </div>
+            <section>
+                <h1 className='title'>Ciudades</h1>
+                <div className='cities-view'>
+                    { imageButtons }
+                </div>
+            </section>
         );
     }
 }

@@ -8,6 +8,7 @@ class Submenu extends React.Component {
             <div className='list'>
                 <button onClick={ () => {} }>
                     <h1>{ this.props.title }</h1>
+                    <span>&#9660;</span>
                 </button>
                 <List />
             </div>
