@@ -100,6 +100,8 @@ export default function(state, action) {
                 }
             };
 
+            toggleFavMarker(newState.markers, newState, action.station);
+
             // Save in local storage
             window.localStorage.setItem('minube_stationFavs', JSON.stringify(newState.stationsFav));
 
@@ -121,7 +123,33 @@ function getFavList(stationsData) {
     return data;
 }
 
-function refreshMarkers(markers, cityName, state, map = null, toggleFav = null) {
+function toggleFavMarker(markers, state, station) {
+    const index = markers.reduce((last, marker, index) => {
+        let ret = last;
+        if (marker.station === station)
+            ret = index;
+        return ret;
+    }, -1);
+
+    const position = {
+        lat: markers[index].position.lat(),
+        lng: markers[index].position.lng()
+    };
+
+    const marker = new window.google.maps.Marker({
+        map: state.map,
+        animation: window.google.maps.Animation.DROP,
+        position: position,
+        icon: state.stationsFav[station] ? './images/heart.svg' : '',
+        station: station
+    });
+
+    markers[index].setMap(null);
+    markers.splice(index, 1);
+    markers.push(marker);
+}
+
+function refreshMarkers(markers, cityName, state, map = null) {
     // Remove previous markers
     markers.forEach((marker) => marker.setMap(null));
 
@@ -132,7 +160,9 @@ function refreshMarkers(markers, cityName, state, map = null, toggleFav = null) 
         const marker = new window.google.maps.Marker({
             map: map ? map : state.map,
             animation: window.google.maps.Animation.DROP,
-            position: {lat: data.latitude, lng: data.longitude}
+            position: {lat: data.latitude, lng: data.longitude},
+            icon: state.stationsFav[data.station_name] ? './images/heart.svg' : '',
+            station: data.station_name
         });
         newMarkers.push(marker);
     });
