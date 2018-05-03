@@ -6,6 +6,7 @@ const LAST_URL = '%3B*%2C*';
 
 export default function(state, action) {
     var newMarkers = [];
+    var newState = {};
     switch(action.type) {
         case types.SHOW_CITY:
             return {...state,
@@ -89,11 +90,16 @@ export default function(state, action) {
                 isSubmenuShowing: !state.isSubmenuShowing
             };
         case types.TOGGLE_FAV:
-            return {...state,
+            newState = {...state,
                 stationsFav: {...state.stationsFav,
                     [action.station]: !state.stationsFav[action.station]
                 }
             };
+
+            // Save in local storage
+            window.localStorage.setItem('minube_stationFavs', JSON.stringify(newState.stationsFav));
+
+            return newState;
         default:
             return state;
     }
@@ -101,7 +107,11 @@ export default function(state, action) {
 
 function getFavList(stationsData) {
     const data = {};
+    // Get local storage
+    const localFavs = JSON.parse(window.localStorage.getItem('minube_stationFavs'));
 
+    if (localFavs) return localFavs
+    
     stationsData.forEach(station => data[station.station_name] = false);
 
     return data;
