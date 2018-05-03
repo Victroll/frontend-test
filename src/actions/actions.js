@@ -53,3 +53,10 @@ export function toggleSubmenu() {
         type: types.TOGGLE_SUBMENU
     };
 }
+
+export function toggleFav(station) {
+    return {
+        type: types.TOGGLE_FAV,
+        station: station
+    };
+}

@@ -30,6 +30,8 @@ export default function(state, action) {
             const dataByCity = getDataByCity(action.data);
             // Get stations by city
             const stationsByCity = getStationsByCity(action.data);
+            // Get stations fav data
+            const stationsFav = getFavList(action.data);
 
             return {...state,
                 countries: countries,
@@ -39,7 +41,8 @@ export default function(state, action) {
                 stationsData: action.data,
                 citiesByCountry: citiesByCountry,
                 stationsByCity: stationsByCity,
-                dataByCity: dataByCity
+                dataByCity: dataByCity,
+                stationsFav: stationsFav
             };
         case types.CREATE_MAP:
             const map = new window.google.maps.Map(document.getElementById('map'), {
@@ -85,9 +88,23 @@ export default function(state, action) {
                 submenuSubclass: state.isSubmenuShowing ? 'close' : 'open',
                 isSubmenuShowing: !state.isSubmenuShowing
             };
+        case types.TOGGLE_FAV:
+            return {...state,
+                stationsFav: {...state.stationsFav,
+                    [action.station]: !state.stationsFav[action.station]
+                }
+            };
         default:
             return state;
     }
+}
+
+function getFavList(stationsData) {
+    const data = {};
+
+    stationsData.forEach(station => data[station.station_name] = false);
+
+    return data;
 }
 
 function refreshMarkers(markers, cityName, state, map = null, toggleFav = null) {
@@ -101,8 +118,7 @@ function refreshMarkers(markers, cityName, state, map = null, toggleFav = null) 
         const marker = new window.google.maps.Marker({
             map: map ? map : state.map,
             animation: window.google.maps.Animation.DROP,
-            position: {lat: data.latitude, lng: data.longitude},
-            icon: data.fav ? './images/heart.svg' : ''
+            position: {lat: data.latitude, lng: data.longitude}
         });
         newMarkers.push(marker);
     });

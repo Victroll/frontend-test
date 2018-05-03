@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showCountry, showStation } from '../actions/actions';
+import FavButton from './FavButton';
 
 class ListItem extends React.Component {
     render() {
@@ -18,11 +19,7 @@ class ListItem extends React.Component {
                         <h2>{ this.props.subtitle }</h2>
                     </div>
                 </button>
-                { !this.props.mainView &&
-                <button className='heart-button' onClick={ () => console.log('Click') }>
-                    <i className="far fa-heart"></i>
-                </button>
-                }
+                { !this.props.mainView && <FavButton station={ this.props.title } /> }
             </li>
         );
     }
@@ -30,8 +27,8 @@ class ListItem extends React.Component {
 
 ListItem.propType = {
     title:      PropTypes.string,
-    imageURL:   PropTypes.string,
-    cities:     PropTypes.string
+    subtitle:   PropTypes.string,
+    imageURL:   PropTypes.string
 }
 
 const mapStateToProps = store => {

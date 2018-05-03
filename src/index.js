@@ -29,7 +29,8 @@ const store = createStore(
         markers: [],
         map: null,
         submenuSubclass: '',
-        isSubmenuShowing: false
+        isSubmenuShowing: false,
+        stationsFav: {}
     }
 );
 
