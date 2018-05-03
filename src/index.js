@@ -30,7 +30,8 @@ const store = createStore(
         map: null,
         submenuSubclass: '',
         isSubmenuShowing: false,
-        stationsFav: {}
+        stationsFav: {},
+        isLoading: true
     }
 );
 

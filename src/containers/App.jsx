@@ -3,25 +3,27 @@ import CitiesView from './CitiesView';
 import Header from '../components/Header';
 import Submenu from './Submenu';
 import MapView from './MapView';
+import LoadingScreen from '../components/LoadingScreen';
 import { connect } from 'react-redux';
-import { fetchData } from '../actions/actions';
+import { fetchData, stopLoading } from '../actions/actions';
 
 class App extends React.Component {
     constructor(props) {
         super(props);  
         
         this.props.fetchData(this.props.data);
+
+        setTimeout(this.props.stopLoading, 3000);
     }
 
     render() {
+        const view = this.props.mainView ? <CitiesView /> : <MapView />;
         return (
             <div>
-                <Header />
-                { this.props.mainView ? 
-                    <CitiesView />
-                    : <MapView />
-                }
-                <Submenu />
+                { this.props.isLoading && <LoadingScreen /> }
+                { !this.props.isLoading && <Header /> }
+                { !this.props.isLoading && view }
+                { !this.props.isLoading && <Submenu />}
             </div>
         );
     }
@@ -29,13 +31,15 @@ class App extends React.Component {
 
 const mapStateToProps = store => {
     return {
-        mainView: store.mainView
+        mainView: store.mainView,
+        isLoading: store.isLoading
     };
 }
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        fetchData: (data) => dispatch(fetchData(data))
+        fetchData: (data) => dispatch(fetchData(data)),
+        stopLoading: () => dispatch(stopLoading())
     };
 }
 

@@ -55,7 +55,7 @@ img {
     z-index: 10;
 }
 
-@keyframes submenuOpen {
+@keyframes submenu-open {
     from {
         top: 100%;
     }
@@ -64,7 +64,7 @@ img {
     }
 }
 
-@keyframes submenuClose {
+@keyframes submenu-close {
     from {
         top: 50%;
     }
@@ -87,11 +87,11 @@ img {
     overflow-y: scroll;
     height: 62%;
     &.open {
-        animation: submenuOpen 1s ease;
+        animation: submenu-open 1s ease;
         animation-fill-mode: forwards;
     }
     &.close {
-        animation: submenuClose 1s ease;
+        animation: submenuc-lose 1s ease;
         animation-fill-mode: forwards;
     }
     .submenu-header {
@@ -144,4 +144,63 @@ img {
 
 .heart-button {
     padding: 0 2rem;
+}
+
+.loading-screen {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    z-index: 111;
+}
+
+.loading-screen-center {
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    left: calc(50% - 2.5rem);
+    bottom: 50%;
+    position: absolute;
+}
+
+.minube-logo {
+    height: 4rem;
+    width: 4rem;
+    background-image: url('nube.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    left: calc(50% - 2rem);
+    bottom: calc(50% + 5rem);
+}
+
+@keyframes loading-animation {
+    0% {
+        transform: scaleY(0.4);
+    }
+    25% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0.4);
+    }
+    100% {
+        transform: scaleY(0.4);
+    }
+}
+
+@for $i from 1 through 5 {
+    .loading-logo-#{$i} {
+        height: 5rem;
+        width: 0.5rem;
+        transform: scaleY(0.4);
+        background-color: #98d562;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #81c34a;
+        animation: loading-animation 1.2s infinite ease-in-out;
+        animation-delay: #{0.1 * $i}s
+    }
 }

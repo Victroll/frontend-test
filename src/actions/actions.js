@@ -60,3 +60,9 @@ export function toggleFav(station) {
         station: station
     };
 }
+
+export function stopLoading() {
+    return {
+        type: types.STOP_LOADING
+    };
+}

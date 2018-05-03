@@ -45,6 +45,10 @@ export default function(state, action) {
                 dataByCity: dataByCity,
                 stationsFav: stationsFav
             };
+        case types.STOP_LOADING:
+            return {...state,
+                isLoading: false
+            };
         case types.CREATE_MAP:
             const map = new window.google.maps.Map(document.getElementById('map'), {
                 zoom: 15,
